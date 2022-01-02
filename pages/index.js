@@ -3,8 +3,14 @@ import Icon from "@material-tailwind/react/Icon";
 import Image from "next/image";
 import Head from "next/head";
 import Header from "../components/Header";
+import { useSession, getSession } from "next-auth/react";
+import Login from "../components/Login";
 
-export default function Home() {
+function Home() {
+  const { data: session, status } = useSession();
+  console.log(session);
+  if (!session) return <Login />;
+
   return (
     <div>
       <Head>
@@ -29,7 +35,7 @@ export default function Home() {
             </Button>
           </div>
           <div>
-            <div className="relative h-52 w-40">
+            <div className="relative h-52 w-40 cursor-pointer">
               <Image src="https://links.papareact.com/pju" layout="fill" />
             </div>
 
@@ -52,3 +58,4 @@ export default function Home() {
     </div>
   );
 }
+export default Home;
